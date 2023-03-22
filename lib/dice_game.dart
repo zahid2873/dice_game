@@ -42,80 +42,94 @@ class _DiceGameState extends State<DiceGame> {
           child: Text('Rules'),
         ),],
       ),
-      body: Center(
-        child: hasGameStarted
-            ? Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(image: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_IaKAJqMQnPsaxxQ12ozVQqca4Z3GvjKHVw&usqp=CAU",),fit: BoxFit.cover)
+        ),
+        child: Center(
+          child: hasGameStarted
+              ? Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        dice_list[index1],
-                        width: 100,
-                        height: 100,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Image.asset(
-                        dice_list[index2],
-                        width: 100,
-                        height: 100,
-                      ),
-                    ],
-                  ),
-                  Text(
-                    'Dice Sum : $diceSum',
-                    style: const TextStyle(fontSize: 25),
-                  ),
-                  if (youWinTheGame == true)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          dice_list[index1],
+                          width: 100,
+                          height: 100,
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Image.asset(
+                          dice_list[index2],
+                          width: 100,
+                          height: 100,
+                        ),
+                      ],
+                    ),
                     Text(
-                      "You Win !!",
-                      style: const TextStyle(
-                        fontSize: 40,
-                      ),
+                      'Dice Sum : $diceSum',
+                      style: const TextStyle(fontSize: 25,color: Colors.white,),
+
                     ),
-                  if (youLoseTheGame == true)
-                    Text(
-                      "You Lose !!",
-                      style: const TextStyle(
-                        fontSize: 40,
+                    if (youWinTheGame == true)
+                      Text(
+                        "You Win !!",
+                        style: const TextStyle(
+                          fontSize: 40,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                  if (getTheTargetPoints == true)
-                    Text(
-                      "Your target point is $points. Keep Rolling untill find same point",
-                      style: const TextStyle(
-                        fontSize: 18,
+                    if (youLoseTheGame == true)
+                      Text(
+                        "You Lose !!",
+                        style: const TextStyle(
+                          fontSize: 40,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                  if (rollingStatus.isEmpty)
-                    ElevatedButton(
-                      onPressed: _rollTheDice,
-                      child: Text(
-                        'Roll',
-                        style: TextStyle(fontSize: 24),
+                    if (getTheTargetPoints == true)
+                      Text(
+                        "Your target point is $points. Keep Rolling untill find same point",
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                  if (status.isNotEmpty)
-                    ElevatedButton(
-                        onPressed: reset,
+                    if (rollingStatus.isEmpty)
+                      ElevatedButton(
+                        onPressed: _rollTheDice,
                         child: Text(
-                          'Reset',
+                          'Roll',
                           style: TextStyle(fontSize: 24),
-                        )),
-                ],
-              )
-            : ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    hasGameStarted = true;
-                  });
-                },
-                child: Text('Start'),
-              ),
+                        ),
+                      ),
+                    if (status.isNotEmpty)
+                      ElevatedButton(
+                          onPressed: reset,
+                          child: Text(
+                            'Reset',
+                            style: TextStyle(fontSize: 24),
+                          )),
+                  ],
+                )
+              : ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      hasGameStarted = true;
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('Start the Game'),
+                  ),
+                ),
+        ),
       ),
     );
   }
@@ -161,6 +175,7 @@ class _DiceGameState extends State<DiceGame> {
 
   void reset() {
     setState(() {
+      rollingStatus='';
       hasGameStarted = false;
       youWinTheGame = false;
       youLoseTheGame = false;
